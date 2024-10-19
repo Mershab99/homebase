@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: photoprism
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://djjudas21.github.io/charts/
+    targetRevision: 7.4.18
+    chart: photoprism
+    helm:
+      valuesObject:
+        env:
+          TZ: "America/New York"
+          PHOTOPRISM_ADMIN_PASSWORD: "Fahimm123"
+        ingress:
+          main:
+            ingressClassName: "nginx" # "nginx"
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+              - host: photos.mershab.com
+                paths:
+                  - path: /
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home
+    namespace: photoprism 
