@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homebridge
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://geek-cookbook.github.io/charts/
+    targetRevision: 5.3.2
+    chart: homebridge
+    helm:
+      valuesObject:
+        hostNetwork: true
+        env:
+         - name: TZ
+           value: "America/New York"
+        ingress:
+          enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+          hosts:
+          - host: homebridge.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        configmap:
+          scripts:
+            enabled: true
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home
+    namespace: homebridge
