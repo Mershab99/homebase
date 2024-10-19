@@ -16,9 +16,9 @@ spec:
             enabled: true
             size: 5Gi
             accessMode: ReadWriteOnce
-            retain: true
+            retain: false
           originals:
-            enabled: true
+            enabled: false
             size: 1024Gi
             accessMode: ReadWriteOnce
             retain: true
