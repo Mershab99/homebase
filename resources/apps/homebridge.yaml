@@ -16,15 +16,16 @@ spec:
          - name: TZ
            value: "America/New York"
         ingress:
-          enabled: true
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-          hosts:
-          - host: homebridge.mershab.com
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
+          main:
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+            - host: homebridge.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
         configmap:
           scripts:
             enabled: true
