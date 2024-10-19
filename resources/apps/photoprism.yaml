@@ -11,6 +11,13 @@ spec:
     chart: photoprism
     helm:
       valuesObject:
+        persistence:
+          config:
+            enabled: true
+            size: 5Gi
+          originals:
+            enabled: true
+            size: 10Gi
         env:
           TZ: "America/New York"
           PHOTOPRISM_ADMIN_PASSWORD: "Fahimm123"
