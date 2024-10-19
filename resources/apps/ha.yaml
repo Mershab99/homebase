@@ -15,9 +15,11 @@ spec:
           TZ: "America/New York"
         ingress:
           main:
-            ingressClassName: "nginx"# "nginx"
+            ingressClassName: "nginx" # "nginx"
             enabled: true
             annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
               nginx.org/websocket-services: home-assistant
             hosts:
               - host: velvet.mershab.com
