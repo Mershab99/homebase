@@ -6,25 +6,27 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://k8s-home-lab.github.io/helm-charts/
-    targetRevision: 14.0.1
+    repoURL: http://pajikos.github.io/home-assistant-helm-chart
+    targetRevision: 0.2.82
     chart: home-assistant
     helm:
       valuesObject:
+        hostNetwork: true
         env:
-          TZ: "America/New York"
+         - name: TZ
+           value: "America/New York"
         ingress:
-          main:
-            ingressClassName: "nginx" # "nginx"
-            enabled: true
-            annotations:
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-              nginx.org/websocket-services: home-assistant
-            hosts:
-              - host: velvet.mershab.com
-                paths:
-                  - path: /
+          enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+          hosts:
+          - host: velvet.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        configuration:
+          enabled: true
   syncPolicy:
     automated: 
       selfHeal: true
