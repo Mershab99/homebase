@@ -19,7 +19,7 @@ spec:
             retain: true
           originals:
             enabled: true
-            size: 2048Gi
+            size: 1024Gi
             accessMode: ReadWriteOnce
             retain: true
         env:
