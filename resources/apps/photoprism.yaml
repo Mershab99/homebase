@@ -27,8 +27,8 @@ spec:
           PHOTOPRISM_ADMIN_PASSWORD: "Fahimm123"
         ingress:
           main:
-            ingressClassName: "nginx" # "nginx"
             enabled: true
+            ingressClassName: "nginx" # "nginx"
             annotations:
               nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
               nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
