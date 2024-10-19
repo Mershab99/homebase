@@ -15,9 +15,13 @@ spec:
           config:
             enabled: true
             size: 5Gi
+            accessMode: ReadWriteOnce
+            retain: true
           originals:
             enabled: true
-            size: 10Gi
+            size: 2048Gi
+            accessMode: ReadWriteOnce
+            retain: true
         env:
           TZ: "America/New York"
           PHOTOPRISM_ADMIN_PASSWORD: "Fahimm123"
