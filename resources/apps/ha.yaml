@@ -15,6 +15,7 @@ spec:
           TZ: "America/New York"
         ingress:
           main:
+            ingressClassName: "nginx"# "nginx"
             enabled: true
             annotations:
               nginx.org/websocket-services: home-assistant
