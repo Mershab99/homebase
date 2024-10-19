@@ -15,9 +15,11 @@ spec:
           TZ: "America/New York"
         ingress:
           main:
+            ingressClassName: "nginx" # "nginx"
             enabled: true
             annotations:
-              nginx.org/websocket-services: home-assistant
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
             hosts:
               - host: scrypted.mershab.com
                 paths:
