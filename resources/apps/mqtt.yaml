@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mosquitto
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://geek-cookbook.github.io/charts/
+    targetRevision: 4.8.2
+    chart: mosquitto
+    helm:
+      valuesObject:
+        persistence:
+          data:
+            enabled: true
+          configinc:
+            enabled: true
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home
+    namespace: mosquitto
