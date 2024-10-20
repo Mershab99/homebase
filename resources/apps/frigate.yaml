@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frigate
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://smarthall.github.io/helm-charts/
+    targetRevision: 1.0.6
+    chart: frigate
+    helm:
+      valuesObject:
+        gpu:
+          nvidia:
+            enabled: false
+              #runtimeClassName: nvidia
+        env:
+         - name: TZ
+           value: "America/New York"
+        ingress:
+          enabled: true
+          ingressClassName: "nginx" # "nginx"
+          annotations:
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+          hosts:
+          - host: frigate.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        persistence:
+          data:
+            enabled: false
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home
+    namespace: frigate
