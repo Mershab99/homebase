@@ -26,6 +26,8 @@ spec:
                         - path: rtsp://admin:Fahimm123@192.168.2.56:554/Streaming/Channels/101 
                           roles:
                             - detect
+                    detect:
+                      enabled: False
         persistence:
           data:
             enabled: true
