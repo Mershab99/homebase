@@ -35,7 +35,7 @@ spec:
   source:
     repoURL: https://github.com/Mershab99/homebase.git
     targetRevision: "v1" #Based on environment
-    path: 'resources/apps'
+    path: 'resources/operated'
     directory:
       recurse: true
   destination:
