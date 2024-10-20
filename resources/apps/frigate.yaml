@@ -11,6 +11,9 @@ spec:
     chart: frigate
     helm:
       valuesObject:
+        configmap:
+          config:
+            enabled: false
         persistence:
           data:
             enabled: true
