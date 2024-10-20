@@ -11,6 +11,10 @@ spec:
     chart: mosquitto
     helm:
       valuesObject:
+        mosquitto:
+          config: |
+            allow_anonymous true
+
 #        mosquitto:
 #          users: "mershab"
         persistence:
