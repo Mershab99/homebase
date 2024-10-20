@@ -11,8 +11,8 @@ spec:
     chart: mosquitto
     helm:
       valuesObject:
-        mosquitto:
-          users: "mershab"
+#        mosquitto:
+#          users: "mershab"
         persistence:
           enabled: true
           size: 1Gi

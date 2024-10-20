@@ -18,7 +18,6 @@ spec:
               config.yml: |
                 mqtt:
                   host: mosquitto.mosquitto.svc.cluster.local
-                  user: mershab
 
                 cameras:
                   front_camera: # <--- this will be changed to your actual camera later
