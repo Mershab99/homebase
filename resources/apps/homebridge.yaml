@@ -12,7 +12,10 @@ spec:
     helm:
       valuesObject:
         persistence:
-          enabled: true
+          config:
+            enabled: true
+            accessMode: ReadWriteOnce
+            size: 1Gi
         hostNetwork: true
         env:
          - name: TZ
