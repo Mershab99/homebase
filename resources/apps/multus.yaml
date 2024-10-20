@@ -6,11 +6,18 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 2.1.18
-    chart: multus-cni
+    repoURL: https://rke2-charts.rancher.io
+    targetRevision: 4.1.201
+    chart: rke2-multus
     helm:
-      valuesObject: {}
+      valuesObject:
+        config:
+          cni_conf:
+            confDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+            binDir: /var/lib/rancher/k3s/data/current/bin/
+            kubeconfig: /var/lib/rancher/k3s/agent/etc/cni/net.d/multus.d/multus.kubeconfig
+manifests:
+  dhcpDaemonSet: true
   syncPolicy:
     automated: 
       selfHeal: true
@@ -20,4 +27,4 @@ spec:
       - priority=8
   destination:
     name: loft-main-vcluster-home
-    namespace: multus-system
+    namespace: kube-system
