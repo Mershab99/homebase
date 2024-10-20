@@ -14,8 +14,12 @@ spec:
         persistence:
           data:
             enabled: true
+            size: 5Gi
+            accessMode: ReadWriteOnce
           configinc:
             enabled: true
+            size: 1Gi
+            accessMode: ReadWriteOnce
   syncPolicy:
     automated: 
       selfHeal: true
