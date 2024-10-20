@@ -1,18 +1,45 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: home-resources
+  name: home-apps
   namespace: argocd
 spec:
   project: "default"
   source:
     repoURL: https://github.com/Mershab99/homebase.git
     targetRevision: "v1" #Based on environment
-    path: 'resources'
+    path: 'resources/apps'
     directory:
       recurse: true
   destination:
     name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=7
+      - allowEmpty=true
+      - skipDryRunOnMissingResource=true
+      - ServerSideApply=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-operated
+  namespace: argocd
+spec:
+  project: "default"
+  source:
+    repoURL: https://github.com/Mershab99/homebase.git
+    targetRevision: "v1" #Based on environment
+    path: 'resources/apps'
+    directory:
+      recurse: true
+  destination:
+    name: loft-main-vcluster-home
     namespace: argocd
   syncPolicy:
     automated: 
