@@ -25,10 +25,9 @@ spec:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
             nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
           hosts:
-          - host: frigate.mershab.com
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
+            - host: frigate.mershab.com
+              paths:
+                - path: /
         persistence:
           data:
             enabled: false
