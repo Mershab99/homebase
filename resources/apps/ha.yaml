@@ -16,12 +16,7 @@ spec:
          - name: TZ
            value: "America/New York"
         podAnnotations:
-          k8s.v1.cni.cncf.io/networks: |
-            [{
-              "name": "flat-network",
-              "namespace": "homeassistant"
-
-            }]
+          k8s.v1.cni.cncf.io/networks: flat-network
         ingress:
           enabled: true
           annotations:
