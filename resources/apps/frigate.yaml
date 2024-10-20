@@ -18,13 +18,12 @@ spec:
               config.yml: |
                 mqtt:
                   enabled: False
-
                 cameras:
-                  dummy_camera: # <--- this will be changed to your actual camera later
-                    enabled: False
+                  front_camera: # <--- this will be changed to your actual camera later
+                    enabled: True
                     ffmpeg:
                       inputs:
-                        - path: rtsp://127.0.0.1:554/rtsp
+                        - path: rtsp://admin:Fahimm123@192.168.2.56:554/Streaming/Channels/101 
                           roles:
                             - detect
         persistence:
