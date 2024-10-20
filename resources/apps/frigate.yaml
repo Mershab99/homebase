@@ -27,7 +27,7 @@ spec:
           hosts:
             - host: frigate.mershab.com
               paths:
-                - path: /
+                - '/'
         persistence:
           data:
             enabled: false
