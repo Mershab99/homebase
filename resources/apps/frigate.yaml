@@ -17,7 +17,9 @@ spec:
             data:
               config.yml: |
                 mqtt:
-                  enabled: False
+                  enabled: True
+                  host: mosquitto.mosquitto.svc.cluster.local
+
                 cameras:
                   front_camera: # <--- this will be changed to your actual camera later
                     enabled: True
