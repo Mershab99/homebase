@@ -13,7 +13,7 @@ spec:
       valuesObject:
         configmap:
           config:
-            enabled: false
+            enabled: true
             data:
               config.yml: |
                 mqtt:
