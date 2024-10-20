@@ -27,6 +27,7 @@ spec:
                 pathType: ImplementationSpecific
         configuration:
           enabled: true
+
   syncPolicy:
     automated: 
       selfHeal: true
