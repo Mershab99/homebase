@@ -28,7 +28,7 @@ spec:
               - path: /
                 pathType: ImplementationSpecific
         configuration:
-          enabled: true
+          enabled: false
         persistence:
           enabled: true
           accessMode: ReadWriteOnce
