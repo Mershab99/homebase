@@ -17,12 +17,10 @@ spec:
             data:
               config.yml: |
                 mqtt:
-                  enabled: True
                   host: mosquitto.mosquitto.svc.cluster.local
 
                 cameras:
                   front_camera: # <--- this will be changed to your actual camera later
-                    enabled: True
                     ffmpeg:
                       inputs:
                         - path: rtsp://admin:Fahimm123@192.168.2.56:554/Streaming/Channels/101 
