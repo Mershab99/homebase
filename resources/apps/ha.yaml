@@ -33,7 +33,6 @@ spec:
           enabled: true
           accessMode: ReadWriteOnce
           size: 5Gi
-          storageClass: ceph-block
 
   syncPolicy:
     automated: 
