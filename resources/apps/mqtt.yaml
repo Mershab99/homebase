@@ -14,13 +14,13 @@ spec:
         mosquitto:
           config: |-
             allow_anonymous true
-
 #        mosquitto:
 #          users: "mershab"
         persistence:
           enabled: true
           size: 1Gi
           accessMode: ReadWriteOnce
+          storageClass: ceph-block
   syncPolicy:
     automated: 
       selfHeal: true

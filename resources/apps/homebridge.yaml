@@ -15,6 +15,7 @@ spec:
           config:
             enabled: true
             accessMode: ReadWriteOnce
+            storageClass: ceph-block
             size: 1Gi
         hostNetwork: true
         env:
