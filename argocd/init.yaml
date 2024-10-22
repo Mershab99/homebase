@@ -52,32 +52,32 @@ spec:
       - skipDryRunOnMissingResource=true
       - ServerSideApply=true
 ---
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: home-multus
-  namespace: argocd
-spec:
-  project: "default"
-  source:
-    repoURL: https://github.com/Mershab99/homebase.git
-    targetRevision: "v1" #Based on environment
-    path: 'resources/multus'
-    directory:
-      recurse: true
-  destination:
-    name: loft-main-vcluster-home
-    namespace: argocd
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels: # The labels to set on the application namespace
-        pod-security.kubernetes.io/enforce: privileged
-    automated: 
-      selfHeal: true
-      prune: true
-    syncOptions:
-      - CreateNamespace=true
-      - priority=7
-      - allowEmpty=true
-      - skipDryRunOnMissingResource=true
-      - ServerSideApply=true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: home-multus
+#  namespace: argocd
+#spec:
+#  project: "default"
+#  source:
+#    repoURL: https://github.com/Mershab99/homebase.git
+#    targetRevision: "v1" #Based on environment
+#    path: 'resources/multus'
+#    directory:
+#      recurse: true
+#  destination:
+#    name: loft-main-vcluster-home
+#    namespace: argocd
+#  syncPolicy:
+#    managedNamespaceMetadata:
+#      labels: # The labels to set on the application namespace
+#        pod-security.kubernetes.io/enforce: privileged
+#    automated: 
+#      selfHeal: true
+#      prune: true
+#    syncOptions:
+#      - CreateNamespace=true
+#      - priority=7
+#      - allowEmpty=true
+#      - skipDryRunOnMissingResource=true
+#      - ServerSideApply=true
