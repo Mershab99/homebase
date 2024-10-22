@@ -29,5 +29,5 @@ spec:
       - CreateNamespace=true
       - priority=8
   destination:
-    name: loft-main-vcluster-home
+    name: loft-main-vcluster-home2
     namespace: mosquitto

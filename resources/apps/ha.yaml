@@ -11,12 +11,12 @@ spec:
     chart: home-assistant
     helm:
       valuesObject:
-        hostNetwork: false
+        hostNetwork: true
         env:
          - name: TZ
            value: "America/New York"
-        podAnnotations:
-          k8s.v1.cni.cncf.io/networks: secondary-net
+#        podAnnotations:
+#          k8s.v1.cni.cncf.io/networks: secondary-net
         ingress:
           enabled: true
           annotations:
@@ -42,5 +42,5 @@ spec:
       - CreateNamespace=true
       - priority=8
   destination:
-    name: loft-main-vcluster-home
+    name: loft-main-vcluster-home2
     namespace: homeassistant
