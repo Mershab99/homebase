@@ -30,6 +30,7 @@ spec:
                 pathType: ImplementationSpecific
         configuration:
           enabled: true
+          forceInit: true
         persistence:
           enabled: true
           accessMode: ReadWriteOnce
