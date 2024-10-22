@@ -39,7 +39,7 @@ spec:
     directory:
       recurse: true
   destination:
-    name: loft-main-vcluster-home
+    name: loft-main-vcluster-home2
     namespace: argocd
   syncPolicy:
     automated: 

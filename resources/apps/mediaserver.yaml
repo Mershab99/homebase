@@ -1,0 +1,164 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-mediaserver
+  namespace: argocd # Ensure this is the namespace where Argo CD is installed
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mershab99/k8s-mediaserver-operator.git
+    targetRevision: openvpn-transmission
+    path: helm-charts/k8s-mediaserver
+    helm:
+      valuesObject:
+
+        jackett:
+          ingress:
+            path: '/'
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          service:
+            type: ClusterIP
+            port: 9117
+          enabled: true
+          volume: 
+            name: pvc-jackett-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
+        sonarr:
+          ingress:
+            path: '/'
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          volume: 
+            name: pvc-sonarr-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
+        radarr:
+          ingress:
+            path: '/'
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          service:
+            type: ClusterIP
+            port: 7878
+          enabled: true
+          volume: 
+            name: pvc-radarr-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
+        sabnzbd:
+          enabled: false
+        prowlarr:
+          service:
+            type: ClusterIP
+            port: 9696
+          ingress:
+            path: '/'
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
+          enabled: true
+        # Default values for k8s-mediaserver.
+        # This is a YAML-formatted file.
+        # Declare variables to be passed into your templates.
+        general:
+          jellyfin_ingress_host: watch.mershab.com
+          ingress_host: watch.mershab.com
+          image_tag: latest
+          # UID to run the process with
+          puid: 1000
+          # GID to run the process with
+          pgid: 1000
+          # Persistent storage selections and pathing
+          storage:
+            customVolume: false # set to true if not using a PVC (must provide volume below)
+            pvcName: mediaserver-pvc
+            size: 4096Gi
+            pvcStorageClass: "ceph-fs"
+            accessMode: "ReadWriteMany"
+            # the path starting from the top level of the pv you're passing. If your share is server.local/share/, then tv is server.local/share/media/tv
+            subPaths:
+              tv: media/tv
+              movies: media/movies
+              downloads: downloads
+              transmission: transmission
+              sabnzbd: sabnzbd
+              config: config
+            volumes: {}
+            #  hostPath:
+            #    path: /mnt/share
+          ingress:
+            ingressClassName: "nginx"
+
+        transmission:
+          ingress:
+            path: '/'
+            enabled: true
+          enabled: true
+          config:
+            openvpn:
+              provider: "protonvpn"
+              config: "fr.protonvpn.tcp"
+              username: "SoQkBuzt2K2vYfeM"
+              password: "4v43RxhW4kbMwSQ5aC8hOx2DXztmMRHk"
+            auth:
+              enabled: false
+              username: ""
+              password: ""
+          resources: 
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 128Mi
+          volume:
+            name: pvc-transmission-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
+            selector: {}
+        plex:
+          enabled: false
+        jellyfin:
+          enabled: true
+          replicaCount: 1
+          ingress:
+            enabled: true
+            tls:
+              enabled: false
+              secretName: ""
+          resources: {}
+          #  limits:
+          #    cpu: 100m
+          #    memory: 100Mi
+          #  requests:
+          #    cpu: 100m
+          #    memory: 100Mi
+
+  destination:
+    name: loft-main-vcluster-home2
+  # Adjust this for remote clusters
+    namespace: mediaserver
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+
