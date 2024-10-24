@@ -13,7 +13,11 @@ spec:
     helm:
       valuesObject:
         env:
-          ADMIN_TOKEN: "YO"
+          ADMIN_TOKEN:
+            valueFrom:
+              secretKeyRef:
+                name: vaultwarden-admin-token
+                key: ADMIN_TOKEN
         ingress:
           main:
             enabled: true
