@@ -1,0 +1,46 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.gabe565.com
+    targetRevision: 0.14.0
+    chart: vaultwarden
+    helm:
+      valuesObject:
+        env:
+          ADMIN_TOKEN: "YO"
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: "nginx" # "nginx"
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+            - host: vault.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+        persistence:
+          data:
+            enabled: true
+            retain: true
+            accessMode: ReadWriteOnce
+            storageClass: "ceph-block"
+            size: 5Gi
+
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home2
+    namespace: vaultwarden
