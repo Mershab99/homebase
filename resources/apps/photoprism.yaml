@@ -13,7 +13,7 @@ spec:
       valuesObject:
         persistence:
           config:
-            storageClass: "block"
+            storageClass: "ceph-block"
             enabled: true
             size: 5Gi
             accessMode: ReadWriteOnce
