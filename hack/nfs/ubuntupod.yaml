@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod-mediasver
+  namespace: mediaserver
+spec:
+  hostNetwork: true
+  containers:
+  - name: ubuntu-container
+    image: ubuntu  # The Ubuntu image for your container
+    command: ["/bin/sh", "-c", "sleep infinity"]  # Keeps the container running for testing
+    volumeMounts:
+    - name: nfs-volume
+      mountPath: /mnt/cloud  # Path inside the container for the NFS mount
+    - name: nfs-2
+      mountPath: /mnt/mediavault # Path inside the container for the NFS mount
+    - name: pvc-volume
+      mountPath: /mnt/pv  # Path inside the container for the PV mount
+  volumes:
+  - name: nfs-2
+    nfs:
+      server:  192.168.2.205 # Replace with your NFS server IP or hostname
+      path: /mnt/vault/mediavault # Replace with your NFS export path
+  - name: nfs-volume
+    nfs:
+      server:  192.168.2.205 # Replace with your NFS server IP or hostname
+      path: /mnt/vault/cloud  # Replace with your NFS export path
+  - name: pvc-volume
+    persistentVolumeClaim:
+      claimName: mediaserver-pvc  # Reference to the PVC created above
