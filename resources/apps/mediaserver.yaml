@@ -107,6 +107,8 @@ spec:
           ingress:
             path: '/'
             enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/rewrite-target: /
           enabled: true
           config:
             openvpn:
