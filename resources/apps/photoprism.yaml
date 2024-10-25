@@ -13,14 +13,16 @@ spec:
       valuesObject:
         persistence:
           config:
+            storageClass: "block"
             enabled: true
             size: 5Gi
             accessMode: ReadWriteOnce
             retain: false
           originals:
+            storageClass: "ceph-fs"
             enabled: true
-            size: 1024Gi
-            accessMode: ReadWriteOnce
+            size: 2048Gi
+            accessMode: ReadWriteMany
             retain: true
         env:
           TZ: "America/New York"
