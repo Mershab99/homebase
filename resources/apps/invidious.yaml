@@ -11,6 +11,9 @@ spec:
     chart: invidious
     helm:
       valuesObject:
+        config:
+          domain: youtube.mershab.com
+          hmac_key: "YO"
         ingress:
           enabled: true
           className: "nginx" # "nginx"
