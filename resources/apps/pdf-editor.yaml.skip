@@ -19,10 +19,10 @@ spec:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
             nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
           hosts:
-          - host: pdf.mershab.com
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
+            - host: pdf.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
   syncPolicy:
     automated: 
       selfHeal: true
