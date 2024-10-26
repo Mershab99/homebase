@@ -91,7 +91,7 @@ spec:
             accessMode: "ReadWriteMany"
             # the path starting from the top level of the pv you're passing. If your share is server.local/share/, then tv is server.local/share/media/tv
             subPaths:
-              tv: media/shows
+              tv: media/tv
               movies: media/movies
               downloads: downloads
               transmission: transmission
