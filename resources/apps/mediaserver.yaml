@@ -11,6 +11,8 @@ spec:
     path: helm-charts/k8s-mediaserver
     helm:
       valuesObject:
+        jellyseer:
+          enabled: false
 
         jackett:
           ingress:
