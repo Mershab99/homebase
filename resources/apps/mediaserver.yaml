@@ -123,7 +123,7 @@ spec:
               cpu: 1000m
               memory: 512Mi
             requests:
-              cpu: 500m
+              cpu: 256m
               memory: 128Mi
           volume:
             name: pvc-transmission-config
@@ -136,6 +136,13 @@ spec:
         plex:
           enabled: false
         jellyfin:
+          volume: 
+            name: pvc-jellyfin-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
           enabled: true
           replicaCount: 1
           ingress:
