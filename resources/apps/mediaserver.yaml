@@ -7,13 +7,10 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Mershab99/k8s-mediaserver-operator.git
-    targetRevision: openvpn-transmission-fixups
+    targetRevision: openvpn-transmission
     path: helm-charts/k8s-mediaserver
     helm:
       valuesObject:
-        jellyseer:
-          enabled: false
-
         jackett:
           ingress:
             path: '/'
@@ -138,13 +135,13 @@ spec:
         plex:
           enabled: false
         jellyfin:
-#          volume: 
-#            name: pvc-jellyfin-config
-#            storageClassName: ceph-block
-#            annotations: {}
-#            labels: {}
-#            accessModes: ReadWriteOnce
-#            storage: 1Gi
+          volume: 
+            name: pvc-jellyfin-config
+            storageClassName: ceph-block
+            annotations: {}
+            labels: {}
+            accessModes: ReadWriteOnce
+            storage: 1Gi
           enabled: true
           replicaCount: 1
           ingress:
