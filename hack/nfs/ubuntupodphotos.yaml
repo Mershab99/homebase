@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod-photos
+  namespace: photoprism
+spec:
+  hostNetwork: true
+  containers:
+  - name: ubuntu-container
+    image: ubuntu  # The Ubuntu image for your container
+    command: ["/bin/sh", "-c", "sleep infinity"]  # Keeps the container running for testing
+    volumeMounts:
+    - name: pvc-volume
+      mountPath: /mnt/photos  # Path inside the container for the PV mount
+  volumes:
+  - name: pvc-volume
+    persistentVolumeClaim:
+      claimName: photoprism-originals  # Reference to the PVC created above

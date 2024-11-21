@@ -46,7 +46,7 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            rclone copy /mnt/mediavault/media/tv /mnt/pv/media/shows --ignore-existing --transfers=8 --checkers=16 --progress &&
+            rclone copy /mnt/mediavault/media/tv /mnt/pv/media/tv --ignore-existing --transfers=8 --checkers=16 --progress &&
             echo "File transfer TV Shows completed."
         volumeMounts:
         - name: nfs-volume
