@@ -28,8 +28,8 @@ machine:
         #     - 169.254.2.53
 
         # # The `extraArgs` field is used to provide additional flags to the kubelet.
-        # extraArgs:
-        #     key: value
+        extraArgs:
+          rotate-server-certificates: true
 
         # # The `extraMounts` field is used to add additional mounts to the kubelet container.
         # extraMounts:
@@ -164,7 +164,7 @@ machine:
     # Used to provide instructions for installations.
     install:
         disk: /dev/sda # The disk used for installations.
-        image: ghcr.io/siderolabs/installer:v1.5.4 # Allows for supplying the image used to perform the installation.
+        image: ghcr.io/siderolabs/installer:v1.8.0 # Allows for supplying the image used to perform the installation.
         wipe: false # Indicates if the installation disk should be wiped at installation time.
         
         # # Look up disk using disk attributes like model, size, serial and others.
@@ -474,9 +474,9 @@ cluster:
         # advertisedSubnets:
         #     - 10.0.0.0/8
     # A list of urls that point to additional manifests.
-    extraManifests: []
-    #   - https://www.example.com/manifest1.yaml
-    #   - https://www.example.com/manifest2.yaml
+    extraManifests:
+      - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+      - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
     # A list of inline Kubernetes manifests.
     inlineManifests: []
@@ -515,4 +515,4 @@ cluster:
     #     certLifetime: 1h0m0s # Admin kubeconfig certificate lifetime (default is 1 year).
 
     # # Allows running workload on control-plane nodes.
-    # allowSchedulingOnControlPlanes: true
+    allowSchedulingOnControlPlanes: true
