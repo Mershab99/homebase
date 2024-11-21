@@ -149,7 +149,8 @@ spec:
             tls:
               enabled: false
               secretName: ""
-          resources: {}
+          resources:
+            nvidia.com/gpu: 1
           limits:
             nvidia.com/gpu: 1
           #    cpu: 100m
