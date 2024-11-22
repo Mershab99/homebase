@@ -157,7 +157,7 @@ spec:
           #    memory: 100Mi
 
   destination:
-    name: in-cluster
+    name: loft-main-vcluster-home
   # Adjust this for remote clusters
     namespace: mediaserver
   syncPolicy:
