@@ -119,10 +119,10 @@ spec:
               password: ""
           resources: 
             limits:
-              cpu: 1000m
+              cpu: 1500m
               memory: 512Mi
             requests:
-              cpu: 256m
+              cpu: 500m
               memory: 128Mi
           volume:
             name: pvc-transmission-config
