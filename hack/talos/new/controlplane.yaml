@@ -164,7 +164,8 @@ machine:
     # Used to provide instructions for installations.
     install:
         disk: /dev/sda # The disk used for installations.
-        image: ghcr.io/siderolabs/installer:v1.8.0 # Allows for supplying the image used to perform the installation.
+        image: factory.talos.dev/installer/7ef39d0df94b4db1810194f9bcbe8ac2951dc46af969891d4734db154ccbd8d6:v1.8.0
+ # Allows for supplying the image used to perform the installation.
         wipe: false # Indicates if the installation disk should be wiped at installation time.
         
         # # Look up disk using disk attributes like model, size, serial and others.
