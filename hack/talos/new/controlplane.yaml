@@ -377,6 +377,8 @@ cluster:
     clusterName: arrakis # Configures the cluster's name.
     # Provides cluster specific network configuration options.
     network:
+      cni:
+        name: none
         dnsDomain: cluster.local # The domain used by Kubernetes DNS.
         # The pod subnet CIDR.
         podSubnets:
