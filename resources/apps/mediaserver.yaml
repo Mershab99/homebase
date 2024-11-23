@@ -149,10 +149,6 @@ spec:
             annotations:
               # Websockets for live progress bars and real-time interactions
               nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-              nginx.ingress.kubernetes.io/use-regex: "true"
-              nginx.ingress.kubernetes.io/configuration-snippet: |
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection $http_connection;
 
               # Ensure proper buffering of streaming media
               nginx.ingress.kubernetes.io/proxy-buffering: "off"
