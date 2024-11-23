@@ -13,6 +13,7 @@ spec:
       valuesObject:
         jackett:
           ingress:
+
             path: '/'
             enabled: true
             annotations:
@@ -145,6 +146,24 @@ spec:
           enabled: true
           replicaCount: 1
           ingress:
+            annotations:
+              # Websockets for live progress bars and real-time interactions
+              nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+              nginx.ingress.kubernetes.io/use-regex: "true"
+              nginx.ingress.kubernetes.io/configuration-snippet: |
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $http_connection;
+
+              # Ensure proper buffering of streaming media
+              nginx.ingress.kubernetes.io/proxy-buffering: "off"
+              
+              # Long-lived connection handling for streaming
+              nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+              nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+              
+              # Optimize response size
+              nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
             enabled: true
             tls:
               enabled: false
