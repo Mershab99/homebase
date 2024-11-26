@@ -24,12 +24,36 @@ spec:
             paths:
               - path: /
                 #pathType: ImplementationSpecific
-        backend:
-          sqlite:
-            enabled: false
-  #          volume:
-  #            size: "1Gi"
-  #            storageClass: "ceph-block"
+        # Deploy postgresql. You can skip this section if you have an existing postgresql database.
+        postgresql:
+          enabled: true
+          fullnameOverride: "langflow-ide-postgresql-service"
+          auth:
+            username: "langflow"
+            password: "langflow-postgres"
+            database: "langflow-db"
+
+        langflow:
+          backend:
+            externalDatabase:
+              enabled: true
+              driver:
+                value: "postgresql"
+              host:
+                value: "langflow-ide-postgresql-service"
+              port:
+                value: "5432"
+              database:
+                value: "langflow-db"
+              user:
+                value: "langflow"
+              password:
+                valueFrom:
+                  secretKeyRef:
+                    key: "password"
+                    name: "langflow-ide-postgresql-service"
+            sqlite:
+              enabled: false
 
   syncPolicy:
     automated: 
