@@ -25,10 +25,10 @@ spec:
               - path: /
                 #pathType: ImplementationSpecific
         sqlite:
-          enabled: true
-          volume:
-            size: "1Gi"
-            storageClass: "ceph-block"
+          enabled: false
+#          volume:
+#            size: "1Gi"
+#            storageClass: "ceph-block"
 
   syncPolicy:
     automated: 
