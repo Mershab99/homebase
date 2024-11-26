@@ -44,6 +44,7 @@ spec:
           ingressClassName: "nginx" # "nginx"
           enabled: true
           annotations:
+            kubernetes.io/ingress.class: "nginx"  # Specifies the ingress controller class
             nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
             nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 
