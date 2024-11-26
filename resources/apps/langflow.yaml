@@ -24,11 +24,12 @@ spec:
             paths:
               - path: /
                 #pathType: ImplementationSpecific
-        sqlite:
-          enabled: false
-#          volume:
-#            size: "1Gi"
-#            storageClass: "ceph-block"
+        backend:
+          sqlite:
+            enabled: false
+  #          volume:
+  #            size: "1Gi"
+  #            storageClass: "ceph-block"
 
   syncPolicy:
     automated: 
