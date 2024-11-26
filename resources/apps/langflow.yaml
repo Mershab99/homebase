@@ -11,48 +11,19 @@ spec:
     chart: langflow-ide
     helm:
       valuesObject:
-        postgresql:
-          enabled: true
-          fullnameOverride: "langflow-ide-postgresql-service"
-          auth:
-            username: "langflow"
-            password: "langflow-postgres"
-            database: "langflow-db"
-
-        langflow:
-          backend:
-            externalDatabase:
-              enabled: true
-              driver:
-                value: "postgresql"
-              host:
-                value: "langflow-ide-postgresql-service"
-              port:
-                value: "5432"
-              database:
-                value: "langflow-db"
-              user:
-                value: "langflow"
-              password:
-                valueFrom:
-                  secretKeyRef:
-                    key: "password"
-                    name: "langflow-ide-postgresql-service"
-            sqlite:
-              enabled: false
         ingress:
           ingressClassName: "nginx" # "nginx"
           enabled: true
           annotations:
             kubernetes.io/ingress.class: "nginx"  # Specifies the ingress controller class
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+              #nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              #nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 
           hosts:
           - host: langflow.mershab.com
             paths:
               - path: /
-                pathType: ImplementationSpecific
+                #pathType: ImplementationSpecific
 
   syncPolicy:
     automated: 
