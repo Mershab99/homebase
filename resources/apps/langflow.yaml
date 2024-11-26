@@ -9,6 +9,7 @@ spec:
     repoURL: https://langflow-ai.github.io/langflow-helm-charts
     targetRevision: 0.1.0
     chart: langflow-ide
+    releaseName: lf-ide
     helm:
       valuesObject:
         ingress:
@@ -27,11 +28,11 @@ spec:
         # Deploy postgresql. You can skip this section if you have an existing postgresql database.
         postgresql:
           enabled: true
-          fullnameOverride: "langflow-ide-postgresql-service"
+          fullnameOverride: "lf-ide-postgresql-service"
           auth:
-            username: "langflow"
-            password: "langflow-postgres"
-            database: "langflow-db"
+            username: "lf"
+            password: "lf-postgres"
+            database: "lf-db"
 
         langflow:
           backend:
@@ -40,18 +41,18 @@ spec:
               driver:
                 value: "postgresql"
               host:
-                value: "langflow-ide-postgresql-service"
+                value: "lf-ide-postgresql-service"
               port:
                 value: "5432"
               database:
-                value: "langflow-db"
+                value: "lf-db"
               user:
-                value: "langflow"
+                value: "lf"
               password:
                 valueFrom:
                   secretKeyRef:
                     key: "password"
-                    name: "langflow-ide-postgresql-service"
+                    name: "lf-ide-postgresql-service"
             sqlite:
               enabled: false
 
@@ -64,4 +65,4 @@ spec:
       - priority=8
   destination:
     name: loft-main-vcluster-home
-    namespace: langflow
+    namespace: lf
