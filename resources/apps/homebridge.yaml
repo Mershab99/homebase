@@ -15,7 +15,7 @@ spec:
           config:
             enabled: true
             accessMode: ReadWriteOnce
-            storageClass: default
+            storageClass: local-path
             size: 1Gi
         hostNetwork: true
         env:
