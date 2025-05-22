@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'git@github.com:Mershab99/website.git'
-    targetRevision: HEAD
+    repoURL: 'https://github.com/Mershab99/website.git'
+    targetRevision: main
     path: 'charts/website'
     helm:
       parameters:
