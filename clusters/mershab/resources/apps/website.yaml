@@ -14,6 +14,11 @@ spec:
         - name: someParameter
           value: someValue
       values: |
+        image:
+          repository: mershab99/website
+          pullPolicy: Always
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "main"
         service:
           type: ClusterIP
         ingress:
@@ -25,10 +30,10 @@ spec:
               paths:
                 - path: /
                   pathType: ImplementationSpecific
-#            - host: www.mershab.com
-#              pathType: ImplementationSpecific
-#              paths:
-#                - /
+            - host: www.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
   destination:
     name: loft-homelab-vcluster-vcluster-mershab
     namespace: website
