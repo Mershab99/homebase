@@ -7,12 +7,12 @@ spec:
   project: default
   source:
     repoURL: 'https://gitlab.com/mershab-homelab/dad/winners.git'
-    targetRevision: HEAD
+    targetRevision: main
     path: 'charts/winners'
     helm:
-      parameters:
-        - name: someParameter
-          value: someValue
+      parameters: {}
+#        - name: someParameter
+#          value: someValue
       values: |
         service:
           type: ClusterIP
@@ -24,11 +24,6 @@ spec:
             - host: winners.mershab.com
               paths:
                 - /
-          scaling:
-            webhook:
-              enabled: true
-        persistence:
-          enabled: true
   destination:
     name: loft-homelab-vcluster-dad
     namespace: 
