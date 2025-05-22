@@ -25,10 +25,10 @@ spec:
               pathType: ImplementationSpecific
               paths:
                 - /
-            - host: www.mershab.com
-              pathType: ImplementationSpecific
-              paths:
-                - /
+#            - host: www.mershab.com
+#              pathType: ImplementationSpecific
+#              paths:
+#                - /
   destination:
     name: loft-homelab-vcluster-vcluster-mershab
     namespace: website
