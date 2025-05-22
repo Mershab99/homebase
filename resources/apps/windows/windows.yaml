@@ -25,7 +25,7 @@ spec:
   template:
     metadata:
       annotations:
-        k8s.v1.cni.cncf.io/networks: br-multus
+        k8s.v1.cni.cncf.io/networks: secondary-net
       labels:
         app: windows
     spec:
