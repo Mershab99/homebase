@@ -25,7 +25,7 @@ spec:
                 - /
   destination:
     name: loft-homelab-vcluster-dad
-    namespace: 
+    namespace: winners 
   syncPolicy:
     automated: 
       selfHeal: true
