@@ -10,7 +10,6 @@ spec:
     targetRevision: main
     path: 'charts/winners'
     helm:
-      parameters: {}
 #        - name: someParameter
 #          value: someValue
       values: |
