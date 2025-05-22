@@ -31,7 +31,7 @@ spec:
           enabled: true
   destination:
     name: loft-homelab-vcluster-dad
-    namespace: n8n
+    namespace: winners
   syncPolicy:
     automated: 
       selfHeal: true
