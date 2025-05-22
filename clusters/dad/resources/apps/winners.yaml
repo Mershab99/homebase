@@ -13,6 +13,11 @@ spec:
 #        - name: someParameter
 #          value: someValue
       values: |
+        image:
+          repository: mershab99/winners
+          pullPolicy: IfNotPresent
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "main"
         service:
           type: ClusterIP
         ingress:
@@ -20,9 +25,14 @@ spec:
           annotations:
             kubernetes.io/ingress.class: nginx
           hosts:
-            - host: winners.mershab.com
-              paths:
-                - /
+          - host: winners.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+          - host: novmar.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
   destination:
     name: loft-homelab-vcluster-vcluster-dad
     namespace: winners 
