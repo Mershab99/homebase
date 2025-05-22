@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frigate
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://geek-cookbook.github.io/charts/
+    targetRevision: 8.2.2
+    chart: frigate
+    helm:
+      valuesObject:
+        configmap:
+          config:
+            enabled: true
+            data:
+              config.yml: |
+                mqtt:
+                  host: mosquitto.mosquitto.svc.cluster.local
+
+                cameras:
+                  front_camera: # <--- this will be changed to your actual camera later
+                    ffmpeg:
+                      inputs:
+                        - path: rtsp://admin:Fahimm123@192.168.2.56:554/Streaming/Channels/101 
+                          roles:
+                            - detect
+                    detect:
+                      enabled: False
+        persistence:
+          data:
+            enabled: true
+            size: 5Gi
+            accessMode: ReadWriteOnce
+            retain: false
+          media:
+            enabled: true
+            size: 512Gi 
+            accessMode: ReadWriteOnce
+            retain: false
+              #resources: {}
+        env:
+          TZ: "America/New York"
+          FRIGATE_RTSP_PASSWORD: "Fahimm123"
+        ingress:
+          main:
+            enabled: true
+            ingressClassName: "nginx" # "nginx"
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+              - host: frigate.mershab.com
+                paths:
+                  - path: /
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home2
+    namespace: frigate 
