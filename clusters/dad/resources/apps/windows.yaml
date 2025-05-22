@@ -12,7 +12,7 @@ spec:
     directory:
       recurse: false
   destination:
-    name: loft-homelab-vcluster-vcluster-dad
+    name: loft-homelab-vcluster-dad
     namespace: windows
   syncPolicy:
     automated: 
