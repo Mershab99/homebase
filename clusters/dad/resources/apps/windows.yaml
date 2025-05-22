@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Mershab99/homebase.git
     targetRevision: "v1" #Based on environment
-    path: 'resources/apps/windows.yaml'
+    path: 'resources/apps/windows/'
     directory:
       recurse: false
   destination:
