@@ -24,8 +24,8 @@ spec:
       app: windows
   template:
     metadata:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: secondary-net
+#      annotations:
+#        k8s.v1.cni.cncf.io/networks: secondary-net
       labels:
         app: windows
     spec:
