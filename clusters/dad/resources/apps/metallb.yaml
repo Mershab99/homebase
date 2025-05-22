@@ -20,6 +20,6 @@ spec:
       - SkipDryRunOnMissingResource=true
       - ServerSideApply=true
   destination:
-    name: in-cluster
+    name: loft-homelab-vcluster-dad
     namespace: metallb-system
 
