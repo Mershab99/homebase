@@ -28,7 +28,7 @@ spec:
               paths:
                 - /
   destination:
-    name: loft-homelab-vcluster-mershab
+    name: loft-homelab-vcluster-vcluster-mershab
     namespace: website
   syncPolicy:
     automated: 
