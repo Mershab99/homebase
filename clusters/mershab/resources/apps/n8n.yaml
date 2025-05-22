@@ -35,7 +35,7 @@ spec:
         persistence:
           enabled: true
   destination:
-    name: loft-homelab-vcluster-vcluster-mershab
+    name: loft-homelab-vcluster-mershab-test
     namespace: n8n
   syncPolicy:
     automated: 
