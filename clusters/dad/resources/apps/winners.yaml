@@ -24,7 +24,7 @@ spec:
               paths:
                 - /
   destination:
-    name: loft-homelab-vcluster-dad
+    name: loft-homelab-vcluster-vcluster-dad
     namespace: winners 
   syncPolicy:
     automated: 
