@@ -26,6 +26,8 @@ spec:
     metadata:
       labels:
         app: windows
+    annotations:
+      k8s.v1.cni.cncf.io/networks: br-multus
     spec:
       containers:
       - name: windows
