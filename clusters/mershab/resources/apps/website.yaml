@@ -22,9 +22,11 @@ spec:
             kubernetes.io/ingress.class: nginx
           hosts:
             - host: mershab.com
+              pathType: ImplementationSpecific
               paths:
                 - /
             - host: www.mershab.com
+              pathType: ImplementationSpecific
               paths:
                 - /
   destination:
