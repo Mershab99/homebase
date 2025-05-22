@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: langflow
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://langflow-ai.github.io/langflow-helm-charts
+    targetRevision: 0.1.0
+    chart: langflow-ide
+    helm:
+      valuesObject:
+        ingress:
+          ingressClassName: "nginx" # "nginx"
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "nginx"  # Specifies the ingress controller class
+              #nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              #nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+
+          hosts:
+          - host: langflow.mershab.com
+            paths:
+              - path: /
+                #pathType: ImplementationSpecific
+        langflow:
+          backend:
+            sqlite:
+              enabled: false
+  #          volume:
+  #            size: "1Gi"
+  #            storageClass: "ceph-block"
+
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home
+    namespace: langflow

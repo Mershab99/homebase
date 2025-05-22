@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mosquitto
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://naps.github.io/helm-charts/
+    targetRevision: 1.0.4
+    chart: mosquitto
+    helm:
+      valuesObject:
+        mosquitto:
+          config: |-
+            allow_anonymous true
+#        mosquitto:
+#          users: "mershab"
+        persistence:
+          enabled: true
+          size: 1Gi
+          accessMode: ReadWriteOnce
+          storageClass: ceph-block
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+  destination:
+    name: loft-main-vcluster-home2
+    namespace: mosquitto
