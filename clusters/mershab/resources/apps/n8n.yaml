@@ -15,18 +15,19 @@ spec:
           value: someValue
       values: |
         config:
-          host: n8n.mershab.com
+          host: www.n8n.mershab.com
           extraEnv:
           # Set this if running behind a reverse proxy and the external port is different from the port n8n runs on
-            WEBHOOK_URL: "https://n8n.mershab.com/"
+            WEBHOOK_URL: "https://www.n8n.mershab.com/"
         service:
           type: ClusterIP
         ingress:
           enabled: true
           annotations:
             kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
           hosts:
-            - host: n8n.mershab.com
+            - host: www.n8n.mershab.com
               paths:
                 - /
           scaling:
@@ -35,7 +36,7 @@ spec:
         persistence:
           enabled: true
   destination:
-    name: loft-homelab-vcluster-vcluster-mershab
+    name: loft-homelab-vcluster-mershab
     namespace: n8n
   syncPolicy:
     automated: 
