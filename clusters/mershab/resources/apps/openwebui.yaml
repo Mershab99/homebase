@@ -14,7 +14,7 @@ spec:
         ingress:
           annotations:
             nginx.ingress.kubernetes.io/proxy-body-size: "4G" # Set to your desired size
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+            #nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
             #nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
           enabled: true
           host: chat.mershab.com
