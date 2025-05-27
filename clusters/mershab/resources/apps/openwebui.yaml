@@ -38,8 +38,12 @@ spec:
 # TODO: ADD OUR OWN MODEL HERE       
           ollama:
             models:
-              - benevolentjoker/nsfwvanessa
-              - llama3
+              pull:
+                - benevolentjoker/nsfwvanessa
+                - llama3
+              run:
+                - benevolentjoker/nsfwvanessa
+                - llama3
             #- qwen2.5-coder:3b
 #            gpu:
 #              enabled: false
