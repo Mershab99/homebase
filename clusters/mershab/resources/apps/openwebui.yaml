@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwebui
+  namespace: argocd # Ensure this is the namespace where Argo CD is installed
+spec:
+  project: default
+  source:
+    repoURL: https://helm.openwebui.com
+    targetRevision: 4.0.0
+    chart: open-webui
+    helm:
+      valuesObject:
+        ingress:
+          annotations:
+            nginx.ingress.kubernetes.io/proxy-body-size: "4G" # Set to your desired size
+            nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+          enabled: true
+          host: www.chat.mershab.com
+          class: nginx
+        persistence:
+          enabled: true
+          size: 100Gi
+          storageClass: ceph-block
+        ollama:
+          #runtimeClassName: nvidia
+#          lifecycle:
+#              postStart:
+#                exec:
+#                  command:
+#                    - /bin/sh
+#                    - -c
+#                    - |
+#                      while ! /bin/ollama ps > /dev/null 2>&1; do
+#                      sleep 5
+#                      done
+#                      /bin/ollama pull benevolentjoker/nsfwvanessa
+# TODO: ADD OUR OWN MODEL HERE       
+          ollama:
+            models:
+              - benevolentjoker/nsfwvanessa
+              - llama3
+            #- qwen2.5-coder:3b
+#            gpu:
+#              enabled: false
+#              type: 'nvidia'
+#              number: 1
+  destination:
+    name: loft-homelab-vcluster-vcluster-mershab
+  # Adjust this for remote clusters
+    namespace: openwebui
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

@@ -43,3 +43,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - priority=8
+      - allowEmpty=true
+      - skipDryRunOnMissingResource=true
+      - ServerSideApply=true
