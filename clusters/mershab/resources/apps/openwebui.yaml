@@ -14,9 +14,9 @@ spec:
         ingress:
           annotations:
             nginx.ingress.kubernetes.io/proxy-body-size: "4G" # Set to your desired size
-            nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+            #nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
           enabled: true
-          host: www.chat.mershab.com
+          host: chat.mershab.com
           class: nginx
         persistence:
           enabled: true
