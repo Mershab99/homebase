@@ -15,19 +15,18 @@ spec:
           value: someValue
       values: |
         config:
-          host: www.n8n.mershab.com
+          host: n8n.mershab.com
           extraEnv:
           # Set this if running behind a reverse proxy and the external port is different from the port n8n runs on
-            WEBHOOK_URL: "https://www.n8n.mershab.com/"
+            WEBHOOK_URL: "https://n8n.mershab.com/"
         service:
           type: ClusterIP
         ingress:
           enabled: true
           annotations:
             kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
           hosts:
-            - host: www.n8n.mershab.com
+            - host: n8n.mershab.com
               paths:
                 - /
           scaling:
