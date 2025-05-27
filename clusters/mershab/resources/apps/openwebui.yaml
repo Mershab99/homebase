@@ -51,8 +51,8 @@ spec:
                 #- llama3
                 #- llama3.2-uncensored:3b
             #- qwen2.5-coder:3b
-#            gpu:
-#              enabled: false
+            gpu:
+              enabled: false
 #              type: 'nvidia'
 #              number: 1
   destination:
