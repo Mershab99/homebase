@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mershab-website
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Mershab99/website.git'
+    targetRevision: main
+    path: 'charts/website'
+    helm:
+#      parameters:
+#        - name: someParameter
+#          value: someValue
+      values: |
+        image:
+          repository: mershab99/website
+          pullPolicy: Always
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "main"
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+          hosts:
+            - host: www.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+  destination:
+    name: loft-homelab-vcluster-vcluster-mershab
+    namespace: website
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+      - allowEmpty=true
+      - skipDryRunOnMissingResource=true
+      - ServerSideApply=true
