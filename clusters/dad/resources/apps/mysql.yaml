@@ -11,16 +11,30 @@ spec:
     chart: mysql
     helm:
       valuesObject:
-        architecture: "replication"
+        image:
+          tag: 8.0.32
 
         auth:
-          user: "user"
-          rootPassword: "newRootPassword123"
-          password: "newUserPassword123"
-          replicationPassword: "newReplicationPassword123"
+          rootPassword: Fahimm123
+          database: "winnersdb"
+          username: "admin"
+          password: "xxx"
 
-        passwordUpdateJob:
+        primary:
+          persistence:
+            enabled: true
+            #existingClaim: "mysql-pvc"
+
+        volumePermissions:
           enabled: true
+
+        initdbScripts:
+          init_db.sql: |
+            CREATE DATABASE novmar;
+            CREATE DATABASE winners;
+
+
+
   syncPolicy:
     automated: 
       selfHeal: true
