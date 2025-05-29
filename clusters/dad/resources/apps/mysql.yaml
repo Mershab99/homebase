@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dad-mysql
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 13.0.0
+    chart: mysql
+    helm:
+      valuesObject:
+        architecture: "replication"
+
+        auth:
+          user: "user"
+          rootPassword: "newRootPassword123"
+          password: "newUserPassword123"
+          replicationPassword: "newReplicationPassword123"
+
+        passwordUpdateJob:
+          enabled: true
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
+      - allowEmpty=true
+      - skipDryRunOnMissingResource=true
+      - ServerSideApply=true
+  destination:
+    name: loft-homelab-vcluster-dad
+    namespace: mysql
