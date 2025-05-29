@@ -11,6 +11,11 @@ spec:
     chart: mysql
     helm:
       valuesObject:
+
+        primary:
+          service:
+            type: LoadBalancer
+
         image:
           tag: 8.0.32
 
