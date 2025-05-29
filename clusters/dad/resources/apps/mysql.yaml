@@ -12,10 +12,6 @@ spec:
     helm:
       valuesObject:
 
-        primary:
-          service:
-            type: LoadBalancer
-
         image:
           tag: 8.0.32
 
@@ -26,6 +22,8 @@ spec:
           password: "xxx"
 
         primary:
+          service:
+            type: LoadBalancer
           persistence:
             enabled: true
             #existingClaim: "mysql-pvc"
