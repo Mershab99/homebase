@@ -18,7 +18,7 @@ spec:
           repository: ghcr.io/mershab99/git-repo-stats
           pullPolicy: Always
           # Overrides the image tag whose default is the chart appVersion.
-          tag: "main"
+          tag: "latest"
         service:
           type: ClusterIP
         ingress:
