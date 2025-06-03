@@ -15,7 +15,7 @@ spec:
 #          value: someValue
       values: |
         image:
-          repository: mershab99/git-repo-stats
+          repository: ghcr.io/mershab99/git-repo-stats
           pullPolicy: Always
           # Overrides the image tag whose default is the chart appVersion.
           tag: "main"
