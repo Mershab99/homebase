@@ -19,14 +19,8 @@ spec:
           pullPolicy: Always
           # Overrides the image tag whose default is the chart appVersion.
           tag: "deploy"
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: 8080
-        readinessProbe:
-          httpGet:
-            path: /status
-            port: 8080
+        livenessProbe: {}
+        readinessProbe: {}
 
         service:
           type: ClusterIP
