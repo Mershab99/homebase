@@ -19,8 +19,11 @@ spec:
           pullPolicy: Always
           # Overrides the image tag whose default is the chart appVersion.
           tag: "latest"
+        livenessProbe: {}
+        readinessProbe: {}
         service:
           type: ClusterIP
+          #port: 8080
         ingress:
           enabled: true
           annotations:
