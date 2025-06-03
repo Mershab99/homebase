@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/Mershab99/git-repo-stats.git'
-    targetRevision: main
+    targetRevision: deploy
     path: 'charts/git-repo-stats'
     helm:
 #      parameters:
@@ -18,7 +18,7 @@ spec:
           repository: ghcr.io/mershab99/git-repo-stats
           pullPolicy: Always
           # Overrides the image tag whose default is the chart appVersion.
-          tag: "main"
+          tag: "deploy"
         livenessProbe: {}
         readinessProbe: {}
         service:
