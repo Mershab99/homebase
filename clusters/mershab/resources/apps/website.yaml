@@ -14,8 +14,16 @@ spec:
 #        - name: someParameter
 #          value: someValue
       values: |
-        livenessProbe: {}
-        readinessProbe: {}
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 5001
+            scheme: HTTP
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 5001
+            scheme: HTTP
 
         image:
           repository: mershab99/website
