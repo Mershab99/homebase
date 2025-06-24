@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mershab-mattermost
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://helm.mattermost.com'
+    targetRevision: 6.6.80
+    chart: mattermost-team-edition
+    helm:
+#      parameters:
+#        - name: someParameter
+#          value: someValue
+      values: |
+        mysql:
+          mysqlUser: user
+          mysqlPassword: password
+        ingress:
+          className: nginx
+          enabled: true
+          hosts:
+            - host: mattermost.mershab.com
+  destination:
+    name: loft-homelab-vcluster-mershab
+    namespace: mattermost
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
