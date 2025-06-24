@@ -21,7 +21,7 @@ spec:
           className: nginx
           enabled: true
           hosts:
-            - host: mattermost.mershab.com
+            - mattermost.mershab.com
   destination:
     name: loft-homelab-vcluster-mershab
     namespace: mattermost
