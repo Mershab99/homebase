@@ -46,11 +46,11 @@ spec:
                 #- medbot:latest
                 #- llama3.2-uncensored:3b
               run:
-                - benevolentjoker/nsfwvanessa
+                #- benevolentjoker/nsfwvanessa
                 - deepseek-coder-v2:latest
                 #- llama3
                 #- llama3.2-uncensored:3b
-            #- qwen2.5-coder:3b
+                - qwen2.5-coder:3b
             gpu:
               enabled: false
 #              type: 'nvidia'
