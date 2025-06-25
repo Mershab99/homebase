@@ -40,7 +40,7 @@ spec:
           ollama:
             models:
               pull:
-                - benevolentjoker/nsfwvanessa
+                #- benevolentjoker/nsfwvanessa
                 - deepseek-coder-v2:latest
                 #- llama3
                 #- medbot:latest
