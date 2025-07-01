@@ -15,7 +15,7 @@ spec:
          - name: TZ
            value: "America/New York"
         podAnnotations:
-          k8s.v1.cni.cncf.io/networks: home-net
+          k8s.v1.cni.cncf.io/networks: br-multus
         ingress:
           className: "nginx" # "nginx"
           enabled: true
