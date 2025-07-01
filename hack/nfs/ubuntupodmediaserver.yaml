@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod-mediaserver
+  namespace: mediaserver
+spec:
+  hostNetwork: true
+  containers:
+  - name: ubuntu-container
+    image: ubuntu  # The Ubuntu image for your container
+    command: ["/bin/sh", "-c", "sleep infinity"]  # Keeps the container running for testing
+    volumeMounts:
+    - name: pvc-volume
+      mountPath: /mnt/pv  # Path inside the container for the PV mount
+  volumes:
+  - name: pvc-volume
+    persistentVolumeClaim:
+      claimName: mediaserver-pvc  # Reference to the PVC created above

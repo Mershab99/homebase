@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinymediamanager
+  namespace: mediaserver
+  labels:
+    app: tinymediamanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinymediamanager
+  template:
+    metadata:
+      labels:
+        app: tinymediamanager
+    spec:
+      containers:
+        - name: tinymediamanager
+          image: tinymediamanager/tinymediamanager:latest
+          env:
+            - name: USER_ID
+              value: "1000"
+            - name: GROUP_ID
+              value: "100"
+            - name: ALLOW_DIRECT_VNC
+              value: "true"
+            - name: LC_ALL
+              value: "en_US.UTF-8"
+            - name: LANG
+              value: "en_US.UTF-8"
+            - name: PASSWORD
+              value: "Fahimm123" # Replace with your desired password
+          ports:
+            - containerPort: 5900 # VNC
+            - containerPort: 4000 # Web interface
+          volumeMounts:
+            - name: media-volume
+              mountPath: /media/tv_shows
+              subPath: media/tv # Subpath for TV shows
+            - name: media-volume
+              mountPath: /media/movies
+              subPath: media/movies # Subpath for Movies
+      volumes:
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: mediaserver-pvc  # Reference to the PVC created above
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tinymediamanager-service
+  namespace: mediaserver
+  labels:
+    app: tinymediamanager
+spec:
+  ports:
+    - name: vnc
+      port: 5900
+      targetPort: 5900
+    - name: web
+      port: 4000
+      targetPort: 4000
+  selector:
+    app: tinymediamanager
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tinymediamanager-ingress
+  namespace: mediaserver
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false" # Adjust based on your SSL setup
+    nginx.ingress.kubernetes.io/proxy-body-size: "500m"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tmm.mershab.com # Replace with your domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tinymediamanager-service
+                port:
+                  number: 4000

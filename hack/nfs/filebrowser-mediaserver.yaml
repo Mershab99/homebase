@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: filebrowser-mediaserver
+  namespace: mediaserver
+  labels:
+    app: filebrowser # Ensure this matches the label on your pod/deployment
+spec:
+  #hostNetwork: true
+  containers:
+  - name: filebrowser-container
+    image: filebrowser/filebrowser  # The Ubuntu image for your container
+    volumeMounts:
+    - name: pvc-volume
+      mountPath: /srv/mnt/pv  # Path inside the container for the PV mount
+  volumes:
+  - name: pvc-volume
+    persistentVolumeClaim:
+      claimName: mediaserver-pvc  # Reference to the PVC created above
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: filebrowser-service
+  namespace: mediaserver # Change if you are using a different namespace
+spec:
+  selector:
+    app: filebrowser # Ensure this matches the label on your pod/deployment
+  ports:
+    - protocol: TCP
+      port: 80 # External port to expose
+      targetPort: 80 # Port your container listens on
+  type: ClusterIP # Use LoadBalancer if you need an external IP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: filebrowser-ingress
+  namespace: mediaserver # Match the namespace of your Service
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false" # Adjust based on your SSL setup
+    nginx.ingress.kubernetes.io/proxy-body-size: "16G" # Set to your desired size
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: filebrowser.mershab.com # Replace with your domain name
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: filebrowser-service
+                port:
+                  number: 80

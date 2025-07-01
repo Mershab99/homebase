@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: flush-media-cronjob
+  namespace: mediaserver
+spec:
+  schedule: "0 * * * *"  # Runs every hour at the top of the hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          #hostNetwork: true
+          restartPolicy: OnFailure  # Ensures the job retries if it fails
+          containers:
+          - name: rclone-container
+            image: rclone/rclone:latest  # Rclone image to perform the file transfer
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                  mv -f /mnt/pv/downloads/completed/* /mnt/pv/media/tv/ &&
+                  echo "File transfer TV Shows completed."
+            volumeMounts:
+            - name: pvc-volume
+              mountPath: /mnt/pv  # PV mount
+          volumes:
+          - name: pvc-volume
+            persistentVolumeClaim:
+              claimName: mediaserver-pvc  # PVC reference for the PV
