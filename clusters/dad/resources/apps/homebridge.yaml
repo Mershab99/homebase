@@ -20,7 +20,7 @@ spec:
           size: 1Gi
         timezone: "America/New York"
         ingress:
-          enabled: true
+          enabled: false
           ingressClassName: "nginx" # "nginx"
           annotations:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
