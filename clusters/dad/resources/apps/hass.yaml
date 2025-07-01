@@ -44,4 +44,4 @@ spec:
       - priority=8
   destination:
     name: in-cluster
-    namespace: homeassistant
+    namespace: default
