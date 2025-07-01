@@ -15,7 +15,7 @@ spec:
          - name: TZ
            value: "America/New York"
         podAnnotations:
-          k8s.v1.cni.cncf.io/networks: br-multus
+          k8s.v1.cni.cncf.io/networks: default/br-multus
         ingress:
           className: "nginx" # "nginx"
           enabled: true
@@ -44,4 +44,4 @@ spec:
       - priority=8
   destination:
     name: in-cluster
-    namespace: default
+    namespace: homeassistant
