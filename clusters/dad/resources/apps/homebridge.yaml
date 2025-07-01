@@ -34,7 +34,7 @@ spec:
                   pathType: ImplementationSpecific
         configmap:
           scripts:
-            enabled: true
+            enabled: false
 #            data:
 #              # -- Custom homebridge startup script contents
 #              # @default -- See values.yaml
