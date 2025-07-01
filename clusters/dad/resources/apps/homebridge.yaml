@@ -11,13 +11,14 @@ spec:
     chart: homebridge
     helm:
       valuesObject:
+        podAnnotations:
+          k8s.v1.cni.cncf.io/networks: default/br-multus
         persistence:
           config:
             enabled: true
             accessMode: ReadWriteOnce
             storageClass: ceph-block
             size: 1Gi
-        hostNetwork: true
         env:
          - name: TZ
            value: "America/New York"
