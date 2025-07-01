@@ -6,28 +6,60 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://geek-cookbook.github.io/charts/
-    targetRevision: 1.0.5
-    chart: homebridge
+    repoURL: https://github.com/Mershab99/docker-homebridge.git
+    targetRevision: mershab
+    path: charts/stable/homebridge
     helm:
       valuesObject:
-        podAnnotations:
-          k8s.v1.cni.cncf.io/networks: default/br-multus
         persistence:
-          enabled: true
-          accessMode: ReadWriteOnce
-          storageClass: ceph-block
-          size: 1Gi
-        timezone: "America/New York"
+          config:
+            enabled: true
+            accessMode: ReadWriteOnce
+            storageClass: ceph-block
+            size: 1Gi
+        env:
+         - name: TZ
+           value: "America/New York"
         ingress:
-          enabled: false
-          ingressClassName: "nginx" # "nginx"
-          annotations:
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-            nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-          hosts:
-          -  homebridge.mershab.com
-  syncPolicy:
+          main:
+            enabled: true
+            ingressClassName: "nginx" # "nginx"
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            hosts:
+            - host: homebridge.mershab.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+        configmap:
+          scripts:
+            enabled: true
+#            data:
+#              # -- Custom homebridge startup script contents
+#              # @default -- See values.yaml
+#              startup.sh: |
+#                #!/bin/sh
+#
+#                #
+#                # Docker Homebridge Custom Startup Script - oznu/homebridge
+#                #
+#                # This script can be used to customise the environment and will be executed as
+#                # the root user each time the container starts.
+#                #
+#                # If using this to install plugins DO NOT use the global flag (-g).
+#                #
+#                # Example installing homebridge plugin:
+#                #
+#                # npm install homebridge-hue
+#                #
+#                # Example installing packages using default image (Alpine Linux):
+#                #
+#                # apk add --no-cache ffmpeg ffmpeg-libs libpcap-dev
+#                #
+#                # If you're running a debian based version of this container please use apt-get to install packages.
+#                #
+#                echo "Started successfully."  syncPolicy:
     automated: 
       selfHeal: true
       prune: true
@@ -37,3 +69,51 @@ spec:
   destination:
     name: loft-homelab-vcluster-dad
     namespace: homebridge
+
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dad-winners
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://gitlab.com/mershab-homelab/dad/winners.git'
+    targetRevision: main
+    path: 'charts/winners'
+    helm:
+#        - name: someParameter
+#          value: someValue
+      values: |
+        image:
+          repository: mershab99/winners
+          pullPolicy: IfNotPresent
+          # Overrides the image tag whose default is the chart appVersion.
+          tag: "main"
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+          hosts:
+          - host: winners.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+          - host: novmar.mershab.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+  destination:
+    name: loft-homelab-vcluster-vcluster-dad
+    namespace: winners 
+  syncPolicy:
+    automated: 
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - priority=8
