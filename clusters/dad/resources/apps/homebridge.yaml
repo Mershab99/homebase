@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Mershab99/docker-homebridge.git
+    repoURL: https://github.com/Mershab99/k8s-at-home.git
     targetRevision: mershab
     path: charts/stable/homebridge
     helm:
