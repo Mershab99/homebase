@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://geek-cookbook.github.io/charts/
-    targetRevision: 5.3.2
+    targetRevision: 1.0.5
     chart: homebridge
     helm:
       valuesObject:
