@@ -45,4 +45,4 @@ spec:
   destination:
     name: loft-homelab-vcluster-dad
     #name: in-cluster
-    namespace: homeassistant
+    namespace: hass
