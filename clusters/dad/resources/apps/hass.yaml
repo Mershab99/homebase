@@ -43,6 +43,6 @@ spec:
       - CreateNamespace=true
       - priority=8
   destination:
-    #name: loft-homelab-vcluster-dad
-    name: in-cluster
+    name: loft-homelab-vcluster-dad
+    #name: in-cluster
     namespace: homeassistant
