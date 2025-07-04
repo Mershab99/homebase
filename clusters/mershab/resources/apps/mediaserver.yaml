@@ -172,7 +172,7 @@ spec:
           #    memory: 100Mi
 
   destination:
-    name: in-cluster
+    name: loft-homelab-vcluster-mershab
   # Adjust this for remote clusters
     namespace: mediaserver
   syncPolicy:
